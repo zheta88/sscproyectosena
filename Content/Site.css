@@ -1,0 +1,42 @@
+﻿body {
+    background-color: lightblue;
+}
+
+
+.contact {
+    font-size: 20px;
+    text-align: center;
+}
+
+.about {
+    padding: 60px;
+    text-align: center;
+}
+
+.carousel.slide {
+    padding: 80px;
+}
+
+img {
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.titulo {
+    margin-top: 80px;
+}
+
+.sesion {
+    margin-left: 390px;
+}
+
+.login {
+    margin-top: 40px;
+    padding: 50px;
+}
+
+.tituloadmin {
+    padding: 40px;
+    margin-top: 40px;
+    text-align: center;
+}

@@ -1,0 +1,63 @@
+﻿
+@model List<CursoMVC.Models.TableViewModels.ActivosTableViewModels>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Activos</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <input type="button" class="btn btn-primary" onclick="document.location.href='@Url.Content("~/Activos/Add")'" value="Nuevo" />
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-lg-12">
+        <table class="table table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Marca</th>
+                <th>Serial</th>
+                <th>Observaciones</th>
+                <th>¿Qué deseas hacer?</th>
+            </tr>
+
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <td>@oElemento.Id</td>
+                    <td>@oElemento.Marca</td>
+                    <td>@oElemento.Serial</td>
+                    <td>@oElemento.Observaciones</td>
+                    <td>
+                        <input onclick="jsDelete(@oElemento.Id);" type="button" value="Eliminar" class="btn btn-danger" />
+                        <input onclick="document.location.href='@Url.Content("~/Activos/Edit/"+oElemento.Id)'" type="button" value="Editar" class="btn btn-default" />
+                    </td>
+
+
+                </tr>
+            }
+        </table>
+    </div>
+</div>
+
+<script>
+    function jsDelete(id) {
+        if (confirm("Estás seguro de eliminar el Activo ?")) {
+            url = "@Url.Content("~/Activos/Delete")" + "/"+id;
+
+            $.post(url, function (data) {
+
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/Activos/")"
+                } else {
+                    alert("Ocurrió un error")
+                }
+
+            })
+        }
+    }
+</script>
+

@@ -25,7 +25,9 @@ namespace CursoMVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Activos> Activos { get; set; }
         public virtual DbSet<cstate> cstate { get; set; }
+        public virtual DbSet<estado_Activo> estado_Activo { get; set; }
         public virtual DbSet<User> User { get; set; }
     }
 }

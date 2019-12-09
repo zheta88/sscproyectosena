@@ -1,9 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="CursoMVCModelStoreContainer" CdmEntityContainer="CursoMVCEntities">
+    <EntitySetMapping Name="Activos">
+      <EntityTypeMapping TypeName="CursoMVCModel.Activos">
+        <MappingFragment StoreEntitySet="Activos">
+          <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+          <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+          <ScalarProperty Name="Serial" ColumnName="Serial" />
+          <ScalarProperty Name="Marca" ColumnName="Marca" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="cstate">
       <EntityTypeMapping TypeName="CursoMVCModel.cstate">
         <MappingFragment StoreEntitySet="cstate">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="estado_Activo">
+      <EntityTypeMapping TypeName="CursoMVCModel.estado_Activo">
+        <MappingFragment StoreEntitySet="estado_Activo">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>

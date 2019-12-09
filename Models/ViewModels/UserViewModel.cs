@@ -13,20 +13,25 @@ namespace CursoMVC.Models.ViewModels
         [StringLength(100, ErrorMessage = "El {0} debe tener al menos {1} caracteres", MinimumLength = 1)]
         [Display(Name = "Correo Electrónico")]
         public string Email { get; set; }
+      
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
         public string Password { get; set; }
 
+        [Required]
         [Display(Name = "Confirmar contraseña")]
         [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "Las contraseñas no coinciden")]
         public string ConfirmPassword { get; set; }
         [Required]
+        
         public string Nombre { get; set; }
         [Required]
         public string Telefono { get; set; }
+
+
 
 
     }
@@ -53,6 +58,7 @@ namespace CursoMVC.Models.ViewModels
         public string Nombre { get; set; }
         [Required]
         public string Telefono { get; set; }
+   
     }
 }
 

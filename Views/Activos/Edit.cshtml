@@ -1,0 +1,43 @@
+﻿@model CursoMVC.Models.ViewModels.EditActivosViewModel
+@{
+    ViewBag.Title = "Editar Activo";
+}
+<br />
+<br />
+
+<h2>@ViewBag.Title</h2>
+
+<div class="row">
+    <div class="col-md-12">
+
+        @using (Html.BeginForm("Edit", "Activos", FormMethod.Post, new { role = "form", @class = "" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationMessage("error", new { @class = "text-danger" })
+
+            @Html.LabelFor(d => d.Marca)
+            @Html.TextBoxFor(d => d.Marca, new { @class = "form-control" })
+            @Html.ValidationMessage("Marca", new { @class = "text-danger" })<br />
+
+            @Html.LabelFor(d => d.Serial)
+            @Html.TextBoxFor(d => d.Serial, new { @class = "form-control" })
+            @Html.ValidationMessage("Serial", new { @class = "text-danger" })<br />
+
+            @Html.LabelFor(d => d.Observaciones)
+            @Html.TextBoxFor(d => d.Observaciones, new { @class = "form-control" })
+            @Html.ValidationMessage("Observaciones", new { @class = "text-danger" })<br />
+
+
+       
+
+            <div style="text-align:right;">
+                <input type="submit" class="btn btn-success" value="Guardar" />
+            </div>
+        }
+
+    </div>
+
+</div>
+
+

@@ -1,6 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="CursoMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Marca" Type="varchar" MaxLength="50" />
+    <Property Name="Serial" Type="varchar" MaxLength="50" />
+    <Property Name="Observaciones" Type="varchar" MaxLength="1000" />
+    <Property Name="idEstado" Type="int" />
+  </EntityType>
   <EntityType Name="cstate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="estado_Activo">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -18,6 +35,18 @@
     <Property Name="nombre" Type="varchar" MaxLength="50" />
     <Property Name="telefono" Type="varchar" MaxLength="50" />
   </EntityType>
+  <Association Name="FK_Activos_Activos">
+    <End Role="estado_Activo" Type="Self.estado_Activo" Multiplicity="0..1" />
+    <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="estado_Activo">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Activos">
+        <PropertyRef Name="idEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_User_cstate">
     <End Role="cstate" Type="Self.cstate" Multiplicity="0..1" />
     <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -31,8 +60,14 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="CursoMVCModelStoreContainer">
+    <EntitySet Name="Activos" EntityType="Self.Activos" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cstate" EntityType="Self.cstate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="estado_Activo" EntityType="Self.estado_Activo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Activos_Activos" Association="Self.FK_Activos_Activos">
+      <End Role="estado_Activo" EntitySet="estado_Activo" />
+      <End Role="Activos" EntitySet="Activos" />
+    </AssociationSet>
     <AssociationSet Name="FK_User_cstate" Association="Self.FK_User_cstate">
       <End Role="cstate" EntitySet="cstate" />
       <End Role="User" EntitySet="User" />

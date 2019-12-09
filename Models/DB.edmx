@@ -5,7 +5,24 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="CursoMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Activos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Marca" Type="varchar" MaxLength="50" />
+          <Property Name="Serial" Type="varchar" MaxLength="50" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="1000" />
+          <Property Name="idEstado" Type="int" />
+        </EntityType>
         <EntityType Name="cstate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="estado_Activo">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -23,6 +40,18 @@
           <Property Name="nombre" Type="varchar" MaxLength="50" />
           <Property Name="telefono" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Activos_Activos">
+          <End Role="estado_Activo" Type="Self.estado_Activo" Multiplicity="0..1" />
+          <End Role="Activos" Type="Self.Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado_Activo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_cstate">
           <End Role="cstate" Type="Self.cstate" Multiplicity="0..1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -36,8 +65,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="CursoMVCModelStoreContainer">
+          <EntitySet Name="Activos" EntityType="Self.Activos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cstate" EntityType="Self.cstate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="estado_Activo" EntityType="Self.estado_Activo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Activos_Activos" Association="Self.FK_Activos_Activos">
+            <End Role="estado_Activo" EntitySet="estado_Activo" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_cstate" Association="Self.FK_User_cstate">
             <End Role="cstate" EntitySet="cstate" />
             <End Role="User" EntitySet="User" />
@@ -48,13 +83,30 @@
     <edmx:ConceptualModels>
       <Schema Namespace="CursoMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="CursoMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Activos" EntityType="CursoMVCModel.Activos" />
           <EntitySet Name="cstate" EntityType="CursoMVCModel.cstate" />
+          <EntitySet Name="estado_Activo" EntityType="CursoMVCModel.estado_Activo" />
           <EntitySet Name="User" EntityType="CursoMVCModel.User" />
+          <AssociationSet Name="FK_Activos_Activos" Association="CursoMVCModel.FK_Activos_Activos">
+            <End Role="estado_Activo" EntitySet="estado_Activo" />
+            <End Role="Activos" EntitySet="Activos" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_cstate" Association="CursoMVCModel.FK_User_cstate">
             <End Role="cstate" EntitySet="cstate" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Activos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Marca" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Serial" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="idEstado" Type="Int32" />
+          <NavigationProperty Name="estado_Activo" Relationship="CursoMVCModel.FK_Activos_Activos" FromRole="Activos" ToRole="estado_Activo" />
+        </EntityType>
         <EntityType Name="cstate">
           <Key>
             <PropertyRef Name="id" />
@@ -62,6 +114,14 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="User" Relationship="CursoMVCModel.FK_User_cstate" FromRole="cstate" ToRole="User" />
+        </EntityType>
+        <EntityType Name="estado_Activo">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Activos" Relationship="CursoMVCModel.FK_Activos_Activos" FromRole="estado_Activo" ToRole="Activos" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -75,6 +135,18 @@
           <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="cstate" Relationship="CursoMVCModel.FK_User_cstate" FromRole="User" ToRole="cstate" />
         </EntityType>
+        <Association Name="FK_Activos_Activos">
+          <End Type="CursoMVCModel.estado_Activo" Role="estado_Activo" Multiplicity="0..1" />
+          <End Type="CursoMVCModel.Activos" Role="Activos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estado_Activo">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Activos">
+              <PropertyRef Name="idEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_cstate">
           <End Type="CursoMVCModel.cstate" Role="cstate" Multiplicity="0..1" />
           <End Type="CursoMVCModel.User" Role="User" Multiplicity="*" />
@@ -93,9 +165,28 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="CursoMVCModelStoreContainer" CdmEntityContainer="CursoMVCEntities">
+          <EntitySetMapping Name="Activos">
+            <EntityTypeMapping TypeName="CursoMVCModel.Activos">
+              <MappingFragment StoreEntitySet="Activos">
+                <ScalarProperty Name="idEstado" ColumnName="idEstado" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Serial" ColumnName="Serial" />
+                <ScalarProperty Name="Marca" ColumnName="Marca" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="cstate">
             <EntityTypeMapping TypeName="CursoMVCModel.cstate">
               <MappingFragment StoreEntitySet="cstate">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estado_Activo">
+            <EntityTypeMapping TypeName="CursoMVCModel.estado_Activo">
+              <MappingFragment StoreEntitySet="estado_Activo">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>

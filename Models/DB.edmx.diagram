@@ -5,8 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5b46dae99cdf482db25faece350995a4" Name="Diagram1">
-        <EntityTypeShape EntityType="CursoMVCModel.cstate" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="CursoMVCModel.User" Width="1.5" PointX="3.25" PointY="1" />
+        <EntityTypeShape EntityType="CursoMVCModel.Activos" Width="1.5" PointX="3" PointY="4.875" />
+        <EntityTypeShape EntityType="CursoMVCModel.cstate" Width="1.5" PointX="0.75" PointY="1.375" />
+        <EntityTypeShape EntityType="CursoMVCModel.estado_Activo" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="CursoMVCModel.User" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="CursoMVCModel.FK_Activos_Activos" />
         <AssociationConnector Association="CursoMVCModel.FK_User_cstate" />
       </Diagram>
     </edmx:Diagrams>

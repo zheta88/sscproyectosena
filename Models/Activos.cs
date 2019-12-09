@@ -12,16 +12,18 @@ namespace CursoMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class User
+    public partial class Activos
     {
-     
-        public int id { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public Nullable<int> idState { get; set; }
-        public string nombre { get; set; }
-        public string telefono { get; set; }
+        public int Id { get; set; }
+       
+        public string Marca { get; set; }
+   
+        public string Serial { get; set; }
+      
+        public string Observaciones { get; set; }
+      
+        public Nullable<int> idEstado { get; set; }
     
-        public virtual cstate cstate { get; set; }
+        public virtual estado_Activo estado_Activo { get; set; }
     }
 }
